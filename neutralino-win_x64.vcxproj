@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{FA6071AC-0D25-44FA-937F-F9F676F61E7C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <TargetName>neutralino-win_x64</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <TargetName>neutralino-win_x64</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;NEU_VERSION="0.0.0";NEU_COMMIT="00000000";ELPP_NO_DEFAULT_LOG_FILE=1;ASIO_STANDALONE;INFOWARE_VERSION="0.6.0";INFOWARE_USE_X11;_WEBSOCKETPP_CPP11_STL_;_HAS_STD_BYTE=0;TRAY_WINAPI=1;UNICODE;_UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>.;lib;lib/asio/include;lib/infoware/include;lib/efsw/include;lib/efsw/src;lib/webview/windows</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <SDLCheck>false</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>lib/webview/windows/WebView2LoaderStatic.lib;gdi32.lib;version.lib;Ole32.lib;OleAut32.lib;wbemuuid.lib;ntdll.lib;dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_WIN32;_WIN64;_WINDOWS;NEU_VERSION="0.0.0";NEU_COMMIT="00000000";ELPP_NO_DEFAULT_LOG_FILE=1;ASIO_STANDALONE;INFOWARE_VERSION="0.6.0";INFOWARE_USE_X11;_WEBSOCKETPP_CPP11_STL_;_HAS_STD_BYTE=0;TRAY_WINAPI=1;UNICODE;_UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>MinSpace</Optimization>
+      <AdditionalIncludeDirectories>.;lib;lib/asio/include;lib/infoware/include;lib/efsw/include;lib/efsw/src;lib/webview/windows</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <SDLCheck>false</SDLCheck>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>lib/webview/windows/WebView2LoaderStatic.lib;gdi32.lib;version.lib;Ole32.lib;OleAut32.lib;wbemuuid.lib;ntdll.lib;dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="bin\resources\index.html" />
+    <None Include="bin\resources\index_module.html" />
+    <None Include="bin\resources\index_spec.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="api\app\app.cpp" />
+    <ClCompile Include="api\clipboard\clipboard.cpp" />
+    <ClCompile Include="api\computer\computer.cpp" />
+    <ClCompile Include="api\custom\custom.cpp" />
+    <ClCompile Include="api\debug\debug.cpp" />
+    <ClCompile Include="api\events\events.cpp" />
+    <ClCompile Include="api\extensions\extensions.cpp" />
+    <ClCompile Include="api\filesystem\filesystem.cpp" />
+    <ClCompile Include="api\os\os.cpp" />
+    <ClCompile Include="api\storage\storage.cpp" />
+    <ClCompile Include="api\window\window.cpp" />
+    <ClCompile Include="auth\authbasic.cpp" />
+    <ClCompile Include="auth\permission.cpp" />
+    <ClCompile Include="chrome.cpp" />
+    <ClCompile Include="errors.cpp" />
+    <ClCompile Include="extensions_loader.cpp" />
+    <ClCompile Include="helpers.cpp" />
+    <ClCompile Include="lib\clip\clip.cpp" />
+    <ClCompile Include="lib\clip\clip_win.cpp" />
+    <ClCompile Include="lib\clip\image.cpp" />
+    <ClCompile Include="lib\easylogging\easylogging++.cc" />
+    <ClCompile Include="lib\efsw\src\efsw\DirectorySnapshot.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\DirectorySnapshotDiff.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\DirWatcherGeneric.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\EfswDebug.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\EfswFileSystem.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\FileInfo.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\FileWatcher.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\FileWatcherCWrapper.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\FileWatcherFSEvents.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\FileWatcherGeneric.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\FileWatcherImpl.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\FileWatcherInotify.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\FileWatcherKqueue.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\FileWatcherWin32.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\Log.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\Mutex.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\platform\win\FileSystemImpl.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\platform\win\MutexImpl.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\platform\win\SystemImpl.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\platform\win\ThreadImpl.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\String.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\System.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\Thread.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\Watcher.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\WatcherFSEvents.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\WatcherGeneric.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\WatcherInotify.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\WatcherKqueue.cpp" />
+    <ClCompile Include="lib\efsw\src\efsw\WatcherWin32.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\architecture\architecture_non_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\architecture\architecture_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\frequency\frequency_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\frequency\frequency_non_windows_non_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\frequency\frequency_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\quantities_cache\quantities_cache_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\quantities_cache\quantities_cache_non_windows_non_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\quantities_cache\quantities_cache_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\vendor_model_name\vendor_model_name_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\vendor_model_name\vendor_model_name_non_windows_non_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\cpu\vendor_model_name\vendor_model_name_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\detail\sysctl_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\detail\sysctl_non_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\detail\winstring_non_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\detail\winstring_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\gpu\blank_all.cpp" />
+    <ClCompile Include="lib\infoware\src\gpu\d3d.cpp" />
+    <ClCompile Include="lib\infoware\src\gpu\OpenCL.cpp" />
+    <ClCompile Include="lib\infoware\src\gpu\OpenGL.cpp" />
+    <ClCompile Include="lib\infoware\src\system\amounts\amounts_non_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\system\amounts\amounts_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\system\displays\displays_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\system\displays\displays_default_blank.cpp" />
+    <ClCompile Include="lib\infoware\src\system\displays\displays_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\system\kernel_info\kernel_info_non_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\system\kernel_info\kernel_info_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\system\memory\memory_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\system\memory\memory_non_windows_non_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\system\memory\memory_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\system\OS_info\os_info_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\system\OS_info\os_info_non_windows_non_darwin.cpp" />
+    <ClCompile Include="lib\infoware\src\system\OS_info\os_info_windows.cpp" />
+    <ClCompile Include="lib\infoware\src\version.cpp" />
+    <ClCompile Include="lib\platformfolders\platform_folders.cpp" />
+    <ClCompile Include="lib\tinyprocess\process.cpp" />
+    <ClCompile Include="lib\tinyprocess\process_win.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="resources.cpp" />
+    <ClCompile Include="server\neuserver.cpp" />
+    <ClCompile Include="server\router.cpp" />
+    <ClCompile Include="settings.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
