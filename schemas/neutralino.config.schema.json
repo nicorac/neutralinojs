@@ -297,6 +297,32 @@
               "type": "string",
               "description": "Binary file name of your application. If it is 'myapp', all binaries will use 'myapp-<platform>_<arch>' format."
             },
+            "binaryMetadata": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Product name"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Product description"
+                },
+                "copyright": {
+                  "type": "string",
+                  "description": "Copyright notice text"
+                },
+                "icon": {
+                  "type": "string",
+                  "description": "Filename of the icon to be used as binary main icon"
+                },
+                "embedResourcesArchive": {
+                  "type": "boolean",
+                  "description": "If set to true, resources.neu archive will be embedded into binary executable and self-loaded (not extracted) from there at runtime. Works only on supported platforms."
+                }
+              },
+              "additionalProperties": false
+            },
             "resourcesPath": {
               "type": "string",
               "description": "Path of your application resources."

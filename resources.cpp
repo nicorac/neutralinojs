@@ -19,6 +19,7 @@
 // However there is a non-standard extension which allows the use of wide strings.
 // So, before we pass the path string to the constructor, we have to convert it to a UTF-16 std::wstring.
 #define CONVSTR(S) helpers::str2wstr(S)
+#include <windows.h>
 #else
 #define CONVSTR(S) S
 #endif
@@ -31,6 +32,7 @@ using json = nlohmann::json;
 namespace resources {
 
 json fileTree = nullptr;
+char* embeddedResourcesData = NULL;
 unsigned int asarHeaderSize;
 resources::ResourceMode mode = resources::ResourceModeBundle;
 
@@ -60,24 +62,43 @@ ifstream __openResourceFile() {
     return asarArchive;
 }
 
+char* __openEmbeddedResourceFile() {
+#if defined(_WIN32)
+    // test for existing embedded resources.neu file
+    HRSRC hresinfo = FindResource(NULL, MAKEINTRESOURCE(IDR_EMBEDDED_RESFILE), RT_RCDATA);
+    if (hresinfo) {
+        HGLOBAL hRes = LoadResource(NULL, hresinfo);
+        DWORD datasize = SizeofResource(NULL, hresinfo);
+        char* data = (char*)LockResource(hRes);
+        return data;
+    }
+#endif
+    return NULL;
+}
+
 fs::FileReaderResult __getFileFromBundle(const string &filename) {
     fs::FileReaderResult fileReaderResult;
     pair<int, string> p = __seekFilePos(filename, fileTree, "");
     if(p.first != -1) {
-        ifstream asarArchive = __openResourceFile();
-        if (!asarArchive) {
-            fileReaderResult.status = errors::NE_RS_TREEGER;
-            return fileReaderResult;
-        }
         unsigned int uSize = p.first;
         unsigned int uOffset = stoi(p.second);
 
-        vector<char>fileBuf ( uSize );
-        asarArchive.seekg(asarHeaderSize + uOffset);
-        asarArchive.read(fileBuf.data(), uSize);
-        string fileContent(fileBuf.begin(), fileBuf.end());
-        fileReaderResult.data = fileContent;
-        asarArchive.close();
+        if (embeddedResourcesData) {
+            fileReaderResult.data.assign(embeddedResourcesData + asarHeaderSize + uOffset, uSize);
+        }
+        else {
+            ifstream asarArchive = __openResourceFile();
+            if (!asarArchive) {
+                fileReaderResult.status = errors::NE_RS_TREEGER;
+                return fileReaderResult;
+            }
+            vector<char>fileBuf ( uSize );
+            asarArchive.seekg(asarHeaderSize + uOffset);
+            asarArchive.read(fileBuf.data(), uSize);
+            string fileContent(fileBuf.begin(), fileBuf.end());
+            fileReaderResult.data = fileContent;
+            asarArchive.close();
+        }
    }
    else {
         fileReaderResult.status = errors::NE_RS_TREEGER;
@@ -86,24 +107,46 @@ fs::FileReaderResult __getFileFromBundle(const string &filename) {
 }
 
 bool __makeFileTree() {
-    ifstream asarArchive = __openResourceFile();
-    if (!asarArchive) {
+
+    ifstream asarArchive;
+
+    // test if binary has resources.neu embedded 
+    embeddedResourcesData = __openEmbeddedResourceFile();
+    if (!embeddedResourcesData) {
+        // fallback to "real" resource file
+        asarArchive = __openResourceFile();
+    }
+
+    if (!asarArchive && !embeddedResourcesData) {
         return false;
     }
 
     char *sizeBuf = new char[8];
-    asarArchive.read(sizeBuf, 8);
-    unsigned int uSize = *(unsigned int *)(sizeBuf + 4) - 8;
-
+    unsigned int uSize = 0;
+    if (embeddedResourcesData) {
+        std::memcpy(sizeBuf, embeddedResourcesData, 8);
+    }
+    else {
+        asarArchive.read(sizeBuf, 8);
+    }
+    uSize = *(unsigned int *)(sizeBuf + 4) - 8;
     delete[] sizeBuf;
 
     asarHeaderSize = uSize + 16;
     vector<char> headerBuf(uSize);
-    asarArchive.seekg(16);
-    asarArchive.read(headerBuf.data(), uSize);
+
+    if (embeddedResourcesData) {
+        std::memcpy(headerBuf.data(), embeddedResourcesData + 16, uSize);        
+    }
+    else {
+        asarArchive.seekg(16);
+        asarArchive.read(headerBuf.data(), uSize);
+        asarArchive.close();
+    }
+
     json files;
     string headerContent(headerBuf.begin(), headerBuf.end());
-    asarArchive.close();
+
     try {
         files = json::parse(headerContent);
     }

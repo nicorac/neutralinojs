@@ -6,6 +6,8 @@
 #include "lib/json/json.hpp"
 #include "api/filesystem/filesystem.h"
 
+#define IDR_EMBEDDED_RESFILE 1000
+
 using namespace std;
 using json = nlohmann::json;
 
